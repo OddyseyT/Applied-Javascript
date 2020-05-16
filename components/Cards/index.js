@@ -16,27 +16,50 @@
 // </div>
 //
 // Create a card for each of the filtered seasons returned and add the card to the DOM.
+const cardsContainer = document.querySelector('.cards-container')
+
+
 axios.get("http://stapi.co/api/v1/rest/season/search")
 
-.then((response) => {
+.then(response => {
     console.log(response.data.seasons)
-    const seasons = response.data.seasons
-    const TNGseasons = seasons.filter((e) => {
-        e.title.includes("TNG")
+    const seasonList = response.data.seasons
+    const TNGseasons = seasonList.filter((e) => 
+        e.title.includes("TNG"))
+        console.log(TNGseasons)
+        TNGseasons.forEach((i) => {
+        cardsContainer.appendChild((cardMaker(i)))
+        })
     })
-    console.log(TNGseasons)
+    
+
+.catch(err => {console.log("something went wrong")})
+
+.then(() => {console.log("success")
 })
-.catch (err => err)
 
-const cardMaker = (item) => {
-    const cardDiv = createElement('div')
+function cardMaker(item) {
+    const cardDiv = document.createElement('div')
+    const titleDiv = document.createElement('div')
+    const infoDiv = document.createElement('div')
+    const seriesSpan = document.createElement('span')
+    const seasonSpan  = document.createElement('span')
+    const episodeSpan = document.createElement('span')
 
-const titleDiv = document.createElement('div')
-const infoDiv = document.createElement('div')
-const seriesSpan = document.createElement('span')
-const seasonSpan  = document.createElement('span')
-const episodeSpan = document.createElement('span')
+titleDiv.textContent = `Title: ${item.title}`
+seriesSpan.textContent = `Series: ${item.series.title}`
+seasonSpan.textContent = `Season: ${item.seasonNumber}`
+episodeSpan.textContent = `Episodes: ${item.numberOfEpisodes}`
 
+cardDiv.appendChild(titleDiv)
+titleDiv.appendChild(infoDiv)
+infoDiv.appendChild(seriesSpan)
+infoDiv.appendChild(seasonSpan)
+infoDiv.appendChild(episodeSpan)
 
+cardDiv.classList.add('card')
+titleDiv.classList.add('title')
+infoDiv.classList.add('info')
 
+return cardDiv
 }
