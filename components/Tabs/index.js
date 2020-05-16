@@ -14,3 +14,7 @@
 // exampleData.forEach(example => {
 //     examplesContainer.appendChild(tabMaker(example));
 
+const entryPoint = querySelector('.topics')
+
+axios.get("http://stapi.co/api/v1/rest/movie/search")
+

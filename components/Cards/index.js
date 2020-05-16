@@ -16,3 +16,27 @@
 // </div>
 //
 // Create a card for each of the filtered seasons returned and add the card to the DOM.
+axios.get("http://stapi.co/api/v1/rest/season/search")
+
+.then((response) => {
+    console.log(response.data.seasons)
+    const seasons = response.data.seasons
+    const TNGseasons = seasons.filter((e) => {
+        e.title.includes("TNG")
+    })
+    console.log(TNGseasons)
+})
+.catch (err => err)
+
+const cardMaker = (item) => {
+    const cardDiv = createElement('div')
+
+const titleDiv = document.createElement('div')
+const infoDiv = document.createElement('div')
+const seriesSpan = document.createElement('span')
+const seasonSpan  = document.createElement('span')
+const episodeSpan = document.createElement('span')
+
+
+
+}
