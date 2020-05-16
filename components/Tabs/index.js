@@ -14,7 +14,37 @@
 // exampleData.forEach(example => {
 //     examplesContainer.appendChild(tabMaker(example));
 
-const entryPoint = querySelector('.topics')
+const entryPoint = document.querySelector('.topics')
 
 axios.get("http://stapi.co/api/v1/rest/movie/search")
+
+.then(response => {
+    console.log(response.data)
+
+    const properMovies = 
+    response.data.movies
+    
+    const JJMovies = properMovies.filter((directors) => 
+        directors.mainDirector.name.includes("J.J. Abrams"))
+        console.log(JJMovies)   
+        JJMovies.forEach((i) => {
+            entryPoint.appendChild((tabMaker(i)))
+
+        })
+})
+
+.catch(err => {console.log("something went wrong")})
+
+.then(() => {console.log("success")})
+
+function tabMaker(element) {
+  const tabDiv = document.createElement('div')
+
+  tabDiv.textContent = `Movie: ${element.title} Director: ${element.mainDirector.name}`
+
+  tabDiv.classList.add('tab')
+  return tabDiv
+}
+
+
 
